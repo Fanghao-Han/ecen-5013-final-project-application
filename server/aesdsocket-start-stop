@@ -1,0 +1,22 @@
+# MELP/chapter 10
+
+#! /bin/sh
+
+FILENAME=aesdsocket
+FILEPATH=/home/root/aesdsocket
+
+case "$1" in
+start)
+    echo "Starting ${FILENAME}"
+    start-stop-daemon -S -n ${FILENAME} -a ${FILEPATH} -- -d
+    ;;
+stop)
+    echo "Stopping ${FILENAME}"
+    start-stop-daemon -K -n ${FILENAME}
+    ;;
+*)
+    echo "Usage: $0 {start| stop}"
+exit 1
+esac
+
+exit 0
