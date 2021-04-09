@@ -28,7 +28,7 @@ uint32_t l;
 #define WAIT_DHTPIN_HI()   l =50000; while (digitalRead(DHTPIN) != HIGH && (l-- > 0))//wait hi
 #define WAIT_DHTPIN_LOW()  l = 50000; while (digitalRead(DHTPIN) != LOW && (l-- > 0))//wait low
 
-//int lcd;
+int lcd;
 int fan_status = 0;
 
 void read_dht11_dat()
@@ -145,7 +145,7 @@ int main( void )
 {
    printf( "Raspberry Pi wiringPi DHT11 Temperature test program\n" );
    //wiringPiSetup
-    int lcd;
+    
     wiringPiSetup();
     pinMode (OUTPUTPIN, OUTPUT);
     lcd = lcdInit (2, 16, 4, LCD_RS, LCD_E, LCD_D4, LCD_D5, LCD_D6, LCD_D7, 0, 0, 0, 0);
