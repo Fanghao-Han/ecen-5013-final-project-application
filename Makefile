@@ -14,13 +14,11 @@ endif
 
 
 all: 	
-	$(CC) $(CFLAGS) server/aesdsocket.c -o aesdsocket $(LDFLAGS)
+	#$(CC) $(CFLAGS) server/aesdsocket.c -o aesdsocket $(LDFLAGS)
 	$(CC) dht11/dht.c -o dht -lwiringPi -lwiringPiDev
-#writer:
-#	$(CC) $(CFLAGS) writer.c -o writer $(LDFLAGS)
 socket:
 	$(CC) $(CFLAGS) server/aesdsocket.c -o aesdsocket $(LDFLAGS)
 dht:
 	$(CC) $(CFLAGS) dht11/dht.c -o dht -lwiringPi -lwiringPiDev
 clean:
-	rm -f *.o writer aesdsocket dht
+	rm -f *.o aesdsocket dht
