@@ -7,6 +7,8 @@ ifeq ($(CFLAGS),)
 	 CFLAGS = -g -Wall -Werror
 endif
 
+#CFLAGS += -D DEBUG
+
 all: server client
 	
 server: server.c
