@@ -25,7 +25,7 @@
 #ifdef DEBUG
     #define DEBUG_LOG(msg,...) printf("INFO | " msg "\n" , ##__VA_ARGS__)
     #define ERROR_LOG(msg,...) printf("ERROR| " msg "\n" , ##__VA_ARGS__)
-#elif
+#else
     #define DEBUG_LOG(msg,...) 
     #define ERROR_LOG(msg,...)
 #endif
