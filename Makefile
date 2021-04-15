@@ -1,24 +1,21 @@
-CROSS_COMPILE=gcc
-#CROSS_COMPILE=arm-unknown-linux-gnueabi-gcc
+
 ifeq ($(CC),)
-	CC = $(CROSS_COMPILE)
+	  CC = $(CROSS_COMPILE)gcc
 endif
 
 ifeq ($(CFLAGS),)
-	CFLAGS = -g -Wall -Werror
+	 CFLAGS = -g -Wall -Werror
 endif
 
-ifeq ($(LDFLAGS),)
-	LDFLAGS = -pthread -lrt
-endif
+#CFLAGS += -D DEBUG
 
+all: server client
+	
+server: dht_server.c
+	$(CC) $(CFLAGS) $(INCLUDES) dht_server.c -o server -pthread -lrt
 
-all: 	
-	#$(CC) $(CFLAGS) server/aesdsocket.c -o aesdsocket $(LDFLAGS)
-	$(CC) dht11/dht.c -o dht -lwiringPi -lwiringPiDev
-socket:
-	$(CC) $(CFLAGS) server/aesdsocket.c -o aesdsocket $(LDFLAGS)
-dht:
-	$(CC) $(CFLAGS) dht11/dht.c -o dht -lwiringPi -lwiringPiDev
-clean:
-	rm -f *.o aesdsocket dht
+client: dht_client.c
+	$(CC) $(CFLAGS) $(INCLUDES) dht_client.c -o client -pthread -lrt -lwiringPi -lwiringPiDev
+
+clean:	
+	rm -rf *o client server
