@@ -22,7 +22,7 @@ int func(int sockfd)
 { 
 	char buff[MAX]; 
 	int n; 
-	// infinite loop for chat 
+
 	for (;;) 
 	{ 
 		bzero(buff, MAX); 
@@ -46,7 +46,9 @@ int func(int sockfd)
 	} 
 } 
 
-// Driver function 
+/**
+ * Server Application Entry
+ */
 int main(int argc, char *argv[]) 
 {
 	int sockfd, connfd, len, i; 
@@ -60,7 +62,7 @@ int main(int argc, char *argv[])
 		}	
 	} 
 
-	// socket create and verification 
+	// Create socket
 	sockfd = socket(AF_INET, SOCK_STREAM, 0); 
 	if (sockfd == -1) { 
 		printf("socket creation failed...\n"); 
@@ -75,7 +77,7 @@ int main(int argc, char *argv[])
 	servaddr.sin_addr.s_addr = htonl(INADDR_ANY); 
 	servaddr.sin_port = htons(PORT); 
 
-	// Binding newly created socket to given IP and verification 
+	// Bind server ip 
 	if ((bind(sockfd, (SA*)&servaddr, sizeof(servaddr))) != 0) { 
 		printf("socket bind failed...\n"); 
 		exit(0); 
@@ -83,7 +85,7 @@ int main(int argc, char *argv[])
 	else
 		printf("Socket successfully binded..\n"); 
 
-	// Now server is ready to listen and verification 
+	// Now server is ready to listen
 	if ((listen(sockfd, 5)) != 0) { 
 		printf("Listen failed...\n"); 
 		exit(0); 
@@ -92,7 +94,7 @@ int main(int argc, char *argv[])
 		printf("Server listening..\n"); 
 	len = sizeof(cli); 
 
-	// Accept the data packet from client and verification 
+	// Accept the data from client 
 	connfd = accept(sockfd, (SA*)&cli, (socklen_t*)&len); 
 	if (connfd < 0) { 
 		printf("server acccept failed...\n"); 

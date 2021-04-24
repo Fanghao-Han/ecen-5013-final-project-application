@@ -78,8 +78,6 @@ int fan_status = 0;
  * Function Definition
  *********************************************************************/
 void func(int sockfd);
-void timerfunc(); 
-int writer(char* writefile, char* writestr, size_t len);
 void read_dht11_dat();
 
 /********************************************************************
@@ -154,62 +152,6 @@ void func(int sockfd)
 	write(sockfd, buff, sizeof(buff)); 
 	bzero(buff, sizeof(buff));  
 } 
-
-int writer(char* writefile, char* writestr, size_t len){
-	int fd;
-	size_t count = len;
-	ssize_t nr;
-
-	// 1. open/create (if exist then append)
-	fd = open(writefile, O_RDWR|O_CREAT|O_APPEND, S_IRWXU|S_IRWXG|S_IRWXO);
-    if(fd == -1){
-		ERROR_LOG("write: invalid path");   
-		return(-1);                  
-    }
-    
-	// 2. write
-    //DEBUG_LOG("Writing: %s", writestr);
-	
-	nr = write(fd, writestr, count);
-	if (nr == -1){
-        perror("write");	
-		exit(1);
-	}
-
-	// 3. close
-	close(fd);
-	
-	return count;
-}
-
-void timerfunc(){
-    int len = 0;
-
-    time_t rawtime;
-    struct tm *info;
-
-    char timestr[32];
-    char writestr[50]; 
-
-    time( &rawtime );
-    info = localtime( &rawtime );
-    strftime(timestr,32,"%a %b %d %Y %T", info);
-
-    strcat(writestr,timestr);
-    strcat(writestr,"\n");
-    
-    len = strlen(writestr);
-
-    //pthread_mutex_lock(&mutex);
-    //writer(FILE_PATH,writestr,len);
-    //pthread_mutex_unlock(&mutex);
-	
-	//sprintf(buff, "%s", writestr);
-	bzero(buff,sizeof(buff));
-	strcat(buff,writestr);
-    total_len += len; // update total length
-
-}
 
 void read_dht11_dat()
 {
@@ -321,8 +263,6 @@ void read_dht11_dat()
 		strcpy(buff,temp_str);
 		strcat(buff," @ ");
 		
-		
-		//timerfunc();
 		time_t rawtime;
 		struct tm *info;
 
