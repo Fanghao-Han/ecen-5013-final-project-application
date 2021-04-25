@@ -267,7 +267,6 @@ void read_dht11_dat()
 		struct tm *info;
 
 		char timestr[32];
-		//char writestr[50]; 
 
 		time( &rawtime );
 		info = localtime( &rawtime );
